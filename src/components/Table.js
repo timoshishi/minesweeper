@@ -3,12 +3,26 @@ import PropTypes from 'prop-types';
 import TableRow from './TableRow';
 import styles from './Table.module.css';
 const Table = ({ minesweeper }) => {
-  console.log('minesweeper.visibleBoard', minesweeper.visibleBoard);
+  const board = minesweeper.board;
+  const [visibleBoard, setVisibleBoard] = useState(
+    minesweeper.createVisibleBoard()
+  );
+
+  const checkBoard = (row, col) => {
+    console.log({ row, col });
+  };
+
   return (
     <table>
       <tbody>
-        {minesweeper.visibleBoard.map((row, i) => (
-          <TableRow row={row} key={i} rowIdx={i} />
+        {visibleBoard.map((row, i) => (
+          <TableRow
+            row={row}
+            key={i}
+            rowIdx={i}
+            board={board}
+            checkBoard={checkBoard}
+          />
         ))}
       </tbody>
     </table>

@@ -7,8 +7,8 @@ export default class Board {
   _createEmptyBoard() {
     const arr = new Array(this.boardSize).fill([]);
     const emptyBoard = arr.map((ar) => new Array(this.boardSize).fill(0));
-    this.board = [...emptyBoard];
-    this.visibleBoard = [...emptyBoard];
+    this.visibleBoard = emptyBoard.slice();
+    this.board = emptyBoard.slice();
   }
 
   _createBombPositions() {
@@ -35,17 +35,22 @@ export default class Board {
       }
     }, true);
   }
-  _placeBombs(board, positions) {
+
+  _placeBombs(positions) {
     positions.forEach((pos) => {
       const [row, col] = pos;
-      board[row][col] = 1;
+      this.board[row][col] = 1;
     });
-    return board;
   }
 
   createBoard() {
     this._createEmptyBoard(this.boardSize);
     const positions = this._createBombPositions();
-    this._placeBombs(this.board, positions);
+    this._placeBombs(positions);
+  }
+
+  createVisibleBoard() {
+    const arr = new Array(this.boardSize).fill([]);
+    return arr.map((ar) => new Array(this.boardSize).fill(0));
   }
 }
