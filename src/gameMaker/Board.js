@@ -5,7 +5,7 @@ export default class Board {
   }
   _createEmptyBoard() {
     const arr = new Array(this.boardSize).fill([]);
-    return arr.map((ar) => new Array(this.boardSize).fill(0));
+    this.board = arr.map((ar) => new Array(this.boardSize).fill(0));
   }
 
   _createBombPositions() {
@@ -14,7 +14,6 @@ export default class Board {
       const row = Math.floor(Math.random() * this.boardSize);
       const col = Math.floor(Math.random() * this.boardSize);
       const position = [row, col];
-      console.log({ position });
       if (this._isValidPosition(position, bombPositions)) {
         bombPositions.push(position);
       } else {
@@ -42,13 +41,12 @@ export default class Board {
   }
 
   createBoard() {
-    const board = this._createEmptyBoard(this.boardSize);
-    console.log('baord', board);
+    this._createEmptyBoard(this.boardSize);
     const positions = this._createBombPositions();
-    console.log({ positions });
-    this.board = this._placeBombs(board, positions);
+    this._placeBombs(this.board, positions);
   }
 }
 
 const gameBoard = new Board(3);
 gameBoard.createBoard();
+console.log(gameBoard.board);
