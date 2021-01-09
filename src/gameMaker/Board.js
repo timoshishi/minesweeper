@@ -1,11 +1,14 @@
 export default class Board {
   constructor(boardSize) {
-    this.board = null;
     this.boardSize = boardSize;
+    this.board = null;
+    this.visibleBoard = null;
   }
   _createEmptyBoard() {
     const arr = new Array(this.boardSize).fill([]);
-    this.board = arr.map((ar) => new Array(this.boardSize).fill(0));
+    const emptyBoard = arr.map((ar) => new Array(this.boardSize).fill(0));
+    this.board = [...emptyBoard];
+    this.visibleBoard = [...emptyBoard];
   }
 
   _createBombPositions() {
@@ -46,7 +49,3 @@ export default class Board {
     this._placeBombs(this.board, positions);
   }
 }
-
-const gameBoard = new Board(3);
-gameBoard.createBoard();
-console.log(gameBoard.board);
